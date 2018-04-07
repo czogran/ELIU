@@ -18,6 +18,9 @@ Cox=(8.854e-12)*3.9/tox
 B=Cox*ruchliwosc*WL
 
 Wypadkowa=0;
+indeks1=0;
+indeks2=0;
+indeks3=0;
 figure
  for i=1:   length(Uds)
     Id=B*(Uds(i));
@@ -25,10 +28,24 @@ figure
     for k=1:length(Ugs)
       if(Ut>Ugs(k))
           Wypadkowa(k)=0;
+           
+          if (indeks1==0)
+           text(Ugs(k), Wypadkowa(k)+0.1e-3,"PODPROGOWY",'Color','black','FontSize',12);
+           indeks1=1
+          end
       elseif((Ugs(k)-Ut)>Uds(i))
           Wypadkowa(k)=Id;
+           indeks2=mod(k,35)
+          if (indeks2==0)
+               text(Ugs(k),Wypadkowa(k),"NIENASYCENIE",'Color','red','FontSize',12);         
+          end
       else
           Wypadkowa(k)=Idsat(k);
+           indeks3=mod(k,9)
+          if (indeks3==0)
+               text(Ugs(k),Wypadkowa(k),"NASYCENIE",'Color','blue','FontSize',12,'HorizontalAlignment','center');
+              
+          end
       end    
     end
   
@@ -43,5 +60,6 @@ figure
  xlabel("Ugs[V]")
  ylabel("gm[S]")
  title("rodzina gm = f (Ugs) dla Uds=[1 2 3 4]")
+ 
  
 hold off
