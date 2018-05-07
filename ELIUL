@@ -1,1 +1,46 @@
 
+r1=2.2*1e3;
+r3=0;
+Bdc=200;
+r1_lin=linspace(r1-2.2*0.05,2.2+r1*0.05);
+r3_lin=0; %będzie z zaokrąglenia r3
+Ucc=12;
+ic=0;
+ib=0;
+ib_lin=0;
+ic_lin=0;
+Uce=0;
+
+
+ib=(Ucc-0.7)/r1
+ic=ib*Bdc
+ib_lin=(Ucc-0.7)./r1_lin;
+ic_lin=ib_lin*Bdc;
+r3=(Ucc-Ucc/2)/ic
+r3_lin=linspace(5.6-5.6*0.05,5.6+5.6*0.05);
+
+[R1 R3]=meshgrid(r1_lin,r3_lin);
+Uce=Ucc-(Ucc-0.7)*Bdc./R1.*R3;
+xlabel('R1')
+mesh(R1,R3,Uce);
+xlabel('R1')
+ylabel('R3')
+zlabel('Uce')
+
+max(max(Uce))
+
+%zadanie5
+r1=18;
+r2=6.8;
+Ucc=12;
+Bdc=200;
+Ic=1.0273;
+Eb=r2/(r1+r2)*Ucc
+rb=r2*r1/(r2+r1);
+re=(Eb-0.7-rb*Ic/Bdc)/(Ic+Ic/Bdc)
+Re=2,7;
+Ic2=(Eb-0.7)/(rb/Bdc+Re/Bdc+Re)
+%Ic2=(Eb-0.7)/2.7
+Ub=Eb-rb*Ic/Bdc
+
+Uce=Ucc-5.6*Ic2-2.7*(Ic2+Ic2/Bdc)
